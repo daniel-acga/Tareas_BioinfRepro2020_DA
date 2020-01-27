@@ -1,0 +1,50 @@
+
+
+# Script para la Tarea 3,4
+## Por Daniel Acosta, 26/01/20
+
+Con este script se genera una gráfica de barras de un conjunto de datos.
+
+
+```{r}
+#Se cargan las librerías y los datos
+
+library (ggplot2)
+
+reads <- read.delim("./../data/reads.txt")
+```
+
+Cambiamos el orden de los levels en el data frame para que la gráfica se genere en el orden deseado.
+
+
+```{r}
+reads$sample<-factor(reads$sample, levels = reads$sample[order(1:length(reads$sample))])
+head(levels(reads$sample))
+```
+
+Generamos un objeto que guarde la gráfica inicial
+
+```{r}
+plot <- ggplot(reads, aes(x = sample, y = nreads, fill = Library))  #Establece los ejes y el                                                  valor por el que se rellenarán las barras 
+```
+
+A este objeto le agregamos la gráfica de barras y sus detalles estéticos
+
+```{r}
+plot1 <- plot + geom_bar (stat="identity") +  #Genera la gráfica de barras con el valor de la                                                 columna en el set de datos
+  
+          labs(x= "Muestra", y = "Lecturas", fill = "Librería")+ #Cambia el nombre de los ejes                                                                   y de la leyenda
+  
+          scale_fill_manual(values=c("14", "43", "23")) +  #Cambia el color de los gráficos
+  
+          theme_dark()                                  #Cambia el color del fondo
+```
+
+Estos comandos generan la siguiente gráfica:
+
+
+```{r plot, echo=FALSE}
+plot(plot1)
+```
+
+
