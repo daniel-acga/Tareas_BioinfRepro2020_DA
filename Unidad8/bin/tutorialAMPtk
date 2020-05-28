@@ -1,0 +1,22 @@
+#Tarea8.1 Tutorial amptk
+
+
+cp -r ../../metagenomica/fastq /data
+
+
+#Ensamble de reads forward y reverse y filtrado por longitud y de primers
+
+amptk illumina -i ../../data/fastq -o amptk/ -f GTGARTCATCRARTYTTTG -r CCTSCSCTTANTDATATGC -l 300 --min_len 200 --full_length --cleanup
+
+
+#Filtro de calidad de secuencias quiméricas
+
+amptk cluster -i ../data/fastq/amptk.demux.fq.gz -o cluster -m 2 --uchime_ref ITS
+
+#Filtro de index bleed, OTUs escasos generados por errores de secuenciación
+
+amptk filter -i ../data/fastq/cluster.otu_table.txt -o filter -f cluster.cluster.otus.fa -p 0.005 --min_reads_otu 2
+
+#Mapeo contra base de datos de UNITE para asignar categorías taxonómicas a OTU's
+
+amptk taxonomy -i ../data/fastq/filter.filtered.otus.fa -m ../../metagenomica/amptk.mapping_file.txt -d ITS2 --tax_filter Fungi

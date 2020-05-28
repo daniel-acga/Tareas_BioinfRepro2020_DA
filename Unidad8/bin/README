@@ -1,0 +1,19 @@
+README Tutorial amotk
+
+Al variar la longitud mínima de los reads permitida durante el primer paso del ensamble, se observan
+cambios en la cantidad de datos que recupera este proceso. Cuando se filtran reads de 300 se obtienen casi
+4 veces menos de taxa.
+
+phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 1257 taxa and 12 samples ]
+sample_data() Sample Data:       [ 12 samples by 8 sample variables ]
+tax_table()   Taxonomy Table:    [ 1257 taxa by 7 taxonomic ranks ]
+
+
+
+> sample1 <- import_biom("taxonomy300.biom")
+> sample1
+phyloseq-class experiment-level object
+otu_table()   OTU Table:         [ 329 taxa and 12 samples ]
+sample_data() Sample Data:       [ 12 samples by 8 sample variables ]
+tax_table()   Taxonomy Table:    [ 329 taxa by 7 taxonomic ranks ]
